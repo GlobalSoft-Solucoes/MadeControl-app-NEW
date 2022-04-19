@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_Despesa.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_Financeiro.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_Pedidos.dart';
@@ -136,12 +138,12 @@ class _SecondCardState extends State<SecondCard> {
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(
-                                          left: size.width * 0.2, right: 4),
+                                          left: size.width * 0.2),
                                       child: IconButton(
                                         icon: Icon(
                                           Icons.filter_list,
                                           color: Colors.white,
-                                          size: 34,
+                                          size: Get.width * 0.08,
                                         ),
                                         onPressed: () async {
                                           await FieldData().popupPesquisaDatas(
@@ -184,11 +186,11 @@ class _SecondCardState extends State<SecondCard> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                   ValueListenableBuilder(
-                                  valueListenable: FieldsRecebimento
-                                      .atualizaValorTotalRecebidos,
-                                  builder: (context, value, _) {
-                                    return Text.rich(
+                                  ValueListenableBuilder(
+                                    valueListenable: FieldsRecebimento
+                                        .atualizaValorTotalRecebidos,
+                                    builder: (context, value, _) {
+                                      return Text.rich(
                                         TextSpan(
                                           text:
                                               '${FieldsPedido.atualizaValorTotalPedidos.value}',

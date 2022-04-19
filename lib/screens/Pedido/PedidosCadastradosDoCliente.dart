@@ -160,7 +160,7 @@ class _PedidosCadastradosClienteState extends State<PedidosCadastradosCliente> {
 
   Future<dynamic> deletar(idPedido) async {
     var response = await http.delete(
-     Uri.parse(DeletarPedido +
+      Uri.parse(DeletarPedido +
           idPedido.toString() +
           '/' +
           ModelsUsuarios.caminhoBaseUser.toString()),
@@ -200,7 +200,7 @@ class _PedidosCadastradosClienteState extends State<PedidosCadastradosCliente> {
     );
 
     http.Response state = await http.post(
-     Uri.parse(CadastrarUmPedido + ModelsUsuarios.caminhoBaseUser.toString()),
+      Uri.parse(CadastrarUmPedido + ModelsUsuarios.caminhoBaseUser.toString()),
       headers: {
         "Content-Type": "application/json",
         "authorization": ModelsUsuarios.tokenAuth.toString()
@@ -411,7 +411,7 @@ class _PedidosCadastradosClienteState extends State<PedidosCadastradosCliente> {
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                height: size.height * 0.18,
+                                                height: size.height * 0.2,
                                                 width: size.width,
                                                 decoration: BoxDecoration(
                                                   borderRadius:

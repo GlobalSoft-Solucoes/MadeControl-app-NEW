@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_Recebimento.dart';
 import 'package:madecontrol_desenvolvimento/Widget/FieldData.dart';
 
@@ -121,12 +122,12 @@ class _FourCardState extends State<FourCard> {
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(
-                                          left: size.width * 0.2, right: 4),
+                                          left: size.width * 0.15),
                                       child: IconButton(
                                         icon: Icon(
                                           Icons.filter_list,
                                           color: Colors.white,
-                                          size: 34,
+                                          size: Get.width * 0.08,
                                         ),
                                         onPressed: () async {
                                           await FieldData().popupPesquisaDatas(
@@ -170,23 +171,24 @@ class _FourCardState extends State<FourCard> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   ValueListenableBuilder(
-                                  valueListenable: FieldsRecebimento
-                                      .atualizaValorTotalRecebidos,
-                                  builder: (context, value, _) {
-                                    return Text.rich(
-                                      TextSpan(
-                                        text: FieldsRecebimento
-                                            .atualizaValorTotalRecebidos.value,
-                                      ),
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        color: Colors.blue[800],
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    );
-                                  },
-                                )
+                                    valueListenable: FieldsRecebimento
+                                        .atualizaValorTotalRecebidos,
+                                    builder: (context, value, _) {
+                                      return Text.rich(
+                                        TextSpan(
+                                          text: FieldsRecebimento
+                                              .atualizaValorTotalRecebidos
+                                              .value,
+                                        ),
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          color: Colors.blue[800],
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      );
+                                    },
+                                  )
                                 ],
                               ),
                             ),
