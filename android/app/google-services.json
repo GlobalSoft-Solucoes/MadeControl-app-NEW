@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "610707519146",
+    "project_id": "madecontrol-a1a86",
+    "storage_bucket": "madecontrol-a1a86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610707519146:android:193931153bb03ae78502d3",
+        "android_client_info": {
+          "package_name": "com.example.madecontrol_clients"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610707519146-8r38se9f60nujojjv8atn1slbqun8hi8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFGt-m6pA0JpSAQUqCG6q5coBjF6eLT28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610707519146-8r38se9f60nujojjv8atn1slbqun8hi8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610707519146:android:501a7c6891722d058502d3",
+        "android_client_info": {
+          "package_name": "madecontrol_desenvolvimento.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610707519146-8r38se9f60nujojjv8atn1slbqun8hi8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFGt-m6pA0JpSAQUqCG6q5coBjF6eLT28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610707519146-8r38se9f60nujojjv8atn1slbqun8hi8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
