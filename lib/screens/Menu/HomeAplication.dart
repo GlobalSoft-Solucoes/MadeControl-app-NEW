@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_ConfigAcesso.dart';
+import 'package:madecontrol_desenvolvimento/Statics/Static_Despesa.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_Empresa.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_Financeiro.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_Usuario.dart';
@@ -323,8 +324,8 @@ class _HomeState extends State<Home> {
                 setState(
                   () {
                     FieldsAcessoTelas.processoMadeira == true
-                        ? Navigator.pushNamed(
-                            context, '/TelaMadProcessada')//ListaHistoricoSerraFita
+                        ? Navigator.pushNamed(context,
+                            '/TelaMadProcessada') //ListaHistoricoSerraFita
                         : mensagemErroAcesso();
                   },
                 );
@@ -386,7 +387,11 @@ class _HomeState extends State<Home> {
               contentPadding: EdgeInsets.only(top: 20, left: 10),
               dense: true,
               onTap: () async {
-                BuscaValoresFinanceiroPorData().capturaDadosFinanceiro(
+                await BuscaValoresFinanceiroPorData().capturaDadosFinanceiro(
+                  FiltroDatasPesquisa.dataInicial,
+                  FiltroDatasPesquisa.dataFinal,
+                );
+                await BuscaDespesasPorData().capturaDadosDespesasPorData(
                   FiltroDatasPesquisa.dataInicial,
                   FiltroDatasPesquisa.dataFinal,
                 );

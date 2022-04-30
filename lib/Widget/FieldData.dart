@@ -81,14 +81,14 @@ class FieldData {
     controllerDataInicio,
     controllerDataFim, {
     mensagemTitulo,
-    double?bordaPopup,
-    double?fontText,
+    double? bordaPopup,
+    double? fontText,
     mascara,
     iconeText,
-    double?fontMsg,
-    Color?corMsg,
-    Color?corBotaoEsq,
-    Color?corBotaoDir,
+    double? fontMsg,
+    Color? corMsg,
+    Color? corBotaoEsq,
+    Color? corBotaoDir,
     txtButton,
     textoCampo,
     fonteButton,
@@ -174,11 +174,11 @@ class FieldData {
                 bottom: 5,
                 right: MediaQuery.of(context).size.width * 0.17,
               ),
-              child: new FloatingActionButton.extended(
+              child: FloatingActionButton.extended(
                 backgroundColor: Colors.green,
-                label: Text(
+                label: const Text(
                   'Pesquisar',
-                  style: new TextStyle(fontSize: 23),
+                  style: TextStyle(fontSize: 23),
                 ),
                 onPressed: () async {
                   validarDataSelecionada(

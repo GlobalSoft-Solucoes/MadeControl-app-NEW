@@ -14,6 +14,8 @@ import 'package:madecontrol_desenvolvimento/models/constantes.dart';
 import 'package:http/http.dart' as http;
 import 'package:madecontrol_desenvolvimento/Statics/Static_Despesa.dart';
 
+import 'DetalhesParcelaDespesa.dart';
+
 class ListarDespesas extends StatefulWidget {
   final int? idSubTipoDespesa;
   ListarDespesas({Key? key, @required this.idSubTipoDespesa}) : super(key: key);
@@ -26,8 +28,8 @@ class _ListarDespesasState extends State<ListarDespesas> {
   _ListarDespesasState({@required this.idSubTipoDespesa}) {
     listarDados(idSubTipoDespesa);
   }
-  final 
-  TextEditingController controllerHora = MaskedTextController(mask: '00:00');
+  final TextEditingController controllerHora =
+      MaskedTextController(mask: '00:00');
   TextEditingController controllerData =
       MaskedTextController(mask: '00/00/0000');
   MoneyMaskedTextController controllerValorDespesa =
@@ -155,7 +157,7 @@ class _ListarDespesasState extends State<ListarDespesas> {
                           child: Text(
                             '${FieldsSubTipoDespesa.nomeSubTipoDespesa}',
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: Get.height * 0.027,
                               color: Colors.blue[700],
                               fontWeight: FontWeight.w700,
                             ),
@@ -191,22 +193,22 @@ class _ListarDespesasState extends State<ListarDespesas> {
                             FieldsDatabase().listaDadosBanco(
                               'Valor total gasto: ',
                               FieldsSubTipoDespesa.totalSubGrupoDespesa,
-                              sizeCampoBanco: 22,
-                              sizeTextoCampo: 22,
+                              sizeCampoBanco: Get.height * 0.024,
+                              sizeTextoCampo: Get.height * 0.024,
                             ),
                             SizedBox(height: size.height * 0.005),
                             FieldsDatabase().listaDadosBanco(
                               'Despesas cadastradas: ',
                               FieldsSubTipoDespesa.qtdDespesasSubGrupo,
-                              sizeCampoBanco: 22,
-                              sizeTextoCampo: 22,
+                              sizeCampoBanco: Get.height * 0.024,
+                              sizeTextoCampo: Get.height * 0.024,
                             ),
                             SizedBox(height: size.height * 0.005),
                             FieldsDatabase().listaDadosBanco(
                               'Média gasto por despesa: ',
                               FieldsSubTipoDespesa.mediaGastoPorDespesa,
-                              sizeCampoBanco: 22,
-                              sizeTextoCampo: 22,
+                              sizeCampoBanco: Get.height * 0.024,
+                              sizeTextoCampo: Get.height * 0.024,
                             ),
                             SizedBox(height: size.height * 0.005),
                           ],
@@ -254,7 +256,7 @@ class _ListarDespesasState extends State<ListarDespesas> {
                                       ),
                                       child: Container(
                                         child: Slidable(
-                                            key: const ValueKey(0),
+                                          key: const ValueKey(0),
                                           startActionPane: ActionPane(
                                             motion: const ScrollMotion(),
                                             children: [
@@ -263,40 +265,41 @@ class _ListarDespesasState extends State<ListarDespesas> {
                                                 backgroundColor: Colors.white,
                                                 icon: Icons.edit_outlined,
                                                 onPressed: (BuildContext
-                                                        context) 
-                                                  async {
-                                                await EditarDadosDaDespesa()
-                                                    .capturaDadosDespesa(
-                                                        dadosListagem[index]
-                                                            .idDespesa);
-                                                Navigator.pushNamed(
-                                                    context, '/EditarDespesa');
-                                              },
+                                                    context) async {
+                                                  await EditarDadosDaDespesa()
+                                                      .capturaDadosDespesa(
+                                                          dadosListagem[index]
+                                                              .idDespesa);
+                                                  Navigator.pushNamed(context,
+                                                      '/EditarDespesa');
+                                                },
                                               ),
-                                               SlidableAction(
+                                              SlidableAction(
                                                 label: 'Excluir',
                                                 backgroundColor: Colors.red,
                                                 icon: Icons.delete_forever,
                                                 onPressed: (BuildContext
                                                         context) =>
-                                                   msgConfirmacaoDeletarDespesa(
-                                                      dadosListagem[index]
-                                                          .idDespesa),
+                                                    msgConfirmacaoDeletarDespesa(
+                                                        dadosListagem[index]
+                                                            .idDespesa),
                                               ),
                                             ],
                                           ),
                                           child: GestureDetector(
                                             onTap: () {
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) =>
-                                              //         ListarDadosDespesa(
-                                              //       iddespesa:
-                                              //           dadosListagem[index].idDespesa,
-                                              //     ),
-                                              //   ),
-                                              // );
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetalhesParcelasDespesa(
+                                                    idDespesa:
+                                                        dadosListagem[index]
+                                                            .idDespesa,
+                                                    key: null,
+                                                  ),
+                                                ),
+                                              );
                                             },
                                             child: Container(
                                               height: size.height * 0.13,
@@ -318,13 +321,6 @@ class _ListarDespesasState extends State<ListarDespesas> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          FieldsDatabase()
-                                                              .listaDadosBanco(
-                                                                  'Valor: ',
-                                                                  dadosListagem[
-                                                                          index]
-                                                                      .valorDespesa),
-                                                          SizedBox(height: 5),
                                                           Row(
                                                             children: [
                                                               FieldsDatabase().listaDadosBanco(
@@ -339,13 +335,43 @@ class _ListarDespesasState extends State<ListarDespesas> {
                                                                       .horaDespesa),
                                                             ],
                                                           ),
-                                                          SizedBox(height: 5),
+                                                          SizedBox(
+                                                              height:
+                                                                  Get.height *
+                                                                      0.01),
                                                           FieldsDatabase()
                                                               .listaDadosBanco(
-                                                                  'Observações: ',
+                                                                  'Valor: ',
                                                                   dadosListagem[
                                                                           index]
-                                                                      .observacoes),
+                                                                      .valorDespesa),
+                                                          SizedBox(
+                                                              height:
+                                                                  Get.height *
+                                                                      0.01),
+                                                          FieldsDatabase()
+                                                              .listaDadosBanco(
+                                                                  'Parcelas: ',
+                                                                  dadosListagem[
+                                                                          index]
+                                                                      .numParcelas),
+                                                          if (dadosListagem[
+                                                                      index]
+                                                                  .observacoes !=
+                                                              '')
+                                                            SizedBox(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.01),
+                                                          if (dadosListagem[
+                                                                      index]
+                                                                  .observacoes !=
+                                                              '')
+                                                            FieldsDatabase().listaDadosBanco(
+                                                                'Observações: ',
+                                                                dadosListagem[
+                                                                        index]
+                                                                    .observacoes),
                                                         ],
                                                       ),
                                                     ),

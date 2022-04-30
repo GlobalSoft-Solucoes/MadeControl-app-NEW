@@ -178,6 +178,8 @@ const BuscaDetalhesMadPorTipoTora =
     UrlServidor + 'mad_processada/BuscaDetalhesPorTipoTora/';
 const ListaProcessoPorTipoTora =
     UrlServidor + 'mad_processada/ListaPorTipoTora/';
+const BuscaTotalTorasPorData =
+    UrlServidor + 'mad_processada/BuscaTotalTorasPorData/';
 
 // ================= TABELA ACESSO_TELAS ==================
 const CadastrarAcessoTelas = UrlServidor + 'AcessoTelas/Cadastrar/';
@@ -225,6 +227,12 @@ const BuscarDetalhesDespesasPorDatas =
 const BuscarDespesaPorId = UrlServidor + 'Despesa/BuscaDespesaPorId/';
 const ListaDespesasPorSubGrupo =
     UrlServidor + 'Despesa/ListaDespesasPorSubGrupo/';
+const BuscaValorTotalDespesasPorData =
+    UrlServidor + 'Despesa/BuscaValorTotalDespesasPorData/';
+// =================== TABELA PARCELA_DESPESA ====================
+const EditarParcelaDespesa = UrlServidor + 'ParcelasDespesa/Editar/';
+const ListaParcelasPorDespesa =
+    UrlServidor + 'ParcelasDespesa/ListaParcelasDespesa/';
 
 // ================= APIS DA PARTE FINANCEIRA ==================
 const BuscarSaldoDaEmpresaPorData =

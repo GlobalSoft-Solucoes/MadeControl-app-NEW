@@ -33,8 +33,7 @@ class FieldsProcessoMadeira {
     print(result.request);
 
     Iterable lista = json.decode(result.body);
-    listaDados =
-        lista.map((model) => MadProcessada.fromJson(model)).toList();
+    listaDados = lista.map((model) => MadProcessada.fromJson(model)).toList();
     qtdTorrasPorTipoTora = listaDados[0].qtdTorrasPorTipoTora;
   }
 }

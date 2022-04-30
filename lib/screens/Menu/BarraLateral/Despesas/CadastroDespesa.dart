@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:madecontrol_desenvolvimento/Statics/Static_SubTipoDespesa.dart';
 import 'package:madecontrol_desenvolvimento/Widget/Botao.dart';
 import 'package:madecontrol_desenvolvimento/Widget/Cabecalho.dart';
+import 'package:madecontrol_desenvolvimento/Widget/CheckBox.dart';
 import 'package:madecontrol_desenvolvimento/Widget/MsgPopup.dart';
 import 'package:madecontrol_desenvolvimento/Widget/TextField.dart';
 import 'package:madecontrol_desenvolvimento/funcoes/FuncoesParaDatas.dart';
@@ -21,10 +25,13 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
   TextEditingController controllerHora = MaskedTextController(mask: '00:00');
   TextEditingController controllerData =
       MaskedTextController(mask: '00/00/0000');
+  TextEditingController controllerDataVencimento =
+      MaskedTextController(mask: '00/00/0000');
   MoneyMaskedTextController controllerValorDespesa =
       MoneyMaskedTextController();
   TextEditingController controllerDescricao = TextEditingController();
   TextEditingController controllerObservacoes = TextEditingController();
+  TextEditingController controllerNumeroParcelas = TextEditingController();
 
   // variaveis para validação de data e hora
   var diaDespesa;
@@ -34,6 +41,9 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
   var horaDespesa;
   var minutoDespesa;
   var horarioDespesa;
+  bool? despesaNormal = false;
+  bool? despesaParcelada = false;
+  DateTime currentDate = DateTime.now();
 
   bool? iniciarMedicao = false;
   bool? salvarlote = false;
@@ -43,7 +53,8 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
 
   Future buscarDadosTipoDespesa() async {
     final response = await http.get(
-        Uri.parse(ListarTodosTipoDespesa + ModelsUsuarios.caminhoBaseUser.toString()),
+        Uri.parse(
+            ListarTodosTipoDespesa + ModelsUsuarios.caminhoBaseUser.toString()),
         headers: {"authorization": ModelsUsuarios.tokenAuth.toString()});
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -55,7 +66,40 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
     }
   }
 
-  //Valida os campos
+  Future<void> selectDate(BuildContext context) async {
+    var datePicked = await DatePicker.showSimpleDatePicker(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime(2050),
+      dateFormat: "dd-MMMM-yyyy",
+      locale: DateTimePickerLocale.pt_br,
+      looping: true,
+    );
+    if (datePicked != null && datePicked != currentDate) {
+      setState(() {
+        currentDate = datePicked;
+        print(currentDate);
+      });
+    }
+  }
+
+  converterData() {
+    var dia;
+    var mes;
+    var ano;
+    var dataBr;
+    String? dataConversao = currentDate.toString();
+
+    ano = dataConversao.substring(0, 4);
+    mes = dataConversao.substring(5, 7);
+    dia = dataConversao.substring(8, 10);
+    dataBr = dia + '/' + mes + '/' + ano;
+
+    print(dataBr);
+    return dataBr.toString();
+  }
+
   verificarCampos() {
     DateTime anoAtual = DateTime.now();
 
@@ -85,13 +129,14 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
         MsgPopup().msgFeedback(
             context, '\nConfira a data informada!', 'Data inválida');
       } else if (int.tryParse(diaDespesa)! > 31 ||
-          int.tryParse(mesDespesa)! > 12 
+              int.tryParse(mesDespesa)! > 12
           // || int.tryParse(anoDespesa) < anoAtual.year
           ) {
         MsgPopup().msgFeedback(
             context, '\nConfira a data informada!', 'Data inválida');
-      } else if (int.tryParse(horaDespesa)! > 24 ||
-          int.tryParse(minutoDespesa)! > 59) {
+      } else if (despesaNormal == true &&
+          (int.tryParse(horaDespesa)! > 24 ||
+              int.tryParse(minutoDespesa)! > 59)) {
         MsgPopup().msgFeedback(
             context, '\nConfira a hora informada!', 'Hora inválida');
       }
@@ -103,8 +148,15 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
       //       .msgFeedback(context, 'O campo descrição não foi preenchido', '');
       // }
       else if (controllerValorDespesa.text == '0,00') {
+        MsgPopup().msgFeedback(context,
+            '\nO campo Valor Despesa não foi preenchido!', 'Valor Despesa');
+      } else if (despesaParcelada == true &&
+          int.parse(controllerNumeroParcelas.text) <= 0) {
         MsgPopup().msgFeedback(
-            context, 'O campo valor despesa não foi preenchido!', '');
+            context,
+            '\nO valor do campo Número Parcelas precisa ser '
+                'maior que zero',
+            'Número Parcelas');
       } else {
         salvarReg();
       }
@@ -113,8 +165,8 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
 
   int? idlote;
   var ultimoId = <ModelsDespesa>[];
-  double?totalLote = 0;
-  double?media = 0;
+  double? totalLote = 0;
+  double? media = 0;
   var quantidade = 0;
 
   Future<dynamic> salvarReg() async {
@@ -127,6 +179,10 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
         'hora_despesa': controllerHora.text,
         'valor_despesa': controllerValorDespesa.text,
         'observacoes': controllerObservacoes.text,
+        'data_vencimento': despesaParcelada == true
+            ? controllerDataVencimento.text
+            : controllerData.text,
+        'num_parcelas': controllerNumeroParcelas.text,
       },
     );
     var response = await http.post(
@@ -151,7 +207,184 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
     this.buscarDadosTipoDespesa();
     controllerData.text =
         DataAtual().pegardataBR().toString().replaceAll('-', '/');
+    controllerDataVencimento.text =
+        DataAtual().pegardataBR().toString().replaceAll('-', '/');
     controllerHora.text = DataAtual().pegarHora().toString();
+    controllerNumeroParcelas.text = '0';
+  }
+
+  escolherTipoDespesa(context) {
+    return CheckBox().checkBoxDuasOpcoes(
+      context,
+      'Tipo da Despesa',
+      'Despesa Normal',
+      'Despesa Parcelada',
+      despesaNormal,
+      despesaParcelada,
+      () async {
+        setState(
+          () {
+            despesaNormal = true;
+            despesaParcelada = false;
+            controllerNumeroParcelas.text = '1';
+          },
+        );
+      },
+      () async {
+        setState(
+          () {
+            despesaParcelada = true;
+            despesaNormal = false;
+          },
+        );
+      },
+      marginBottom: 0.0,
+      marginLeft: 0.013,
+      marginTop: 0.02,
+      distanciaTituloDosChecks: 0.005,
+      backgroundColor: Colors.white.withOpacity(0.9),
+    );
+  }
+
+  opcDespesaNormal() {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
+    Size size = mediaQuery.size;
+    return Column(
+      children: [
+        CampoText().textField(
+          controllerValorDespesa,
+          'Valor da despesa:',
+          confPadding:
+              EdgeInsets.only(top: size.height * 0.08, left: 10, right: 10),
+          icone: Icons.monetization_on,
+        ),
+        Container(
+          padding: EdgeInsets.only(top: size.height * 0.04),
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                width: size.width * 0.48,
+                child: CampoText().textFieldIconButton(
+                  controllerData,
+                  'Data:',
+                  tipoTexto: TextInputType.text,
+                  icone: Icons.date_range_outlined,
+                  fontLabel: Get.width * 0.05,
+                  onTapIcon: () async {
+                    await selectDate(context);
+                    controllerData.text = converterData();
+                  },
+                ),
+              ),
+              Container(
+                width: size.width * 0.48,
+                child: CampoText().textField(
+                  controllerHora,
+                  'Hora:',
+                  tipoTexto: TextInputType.text,
+                  icone: Icons.timelapse_sharp,
+                  fontLabel: Get.width * 0.05,
+                ),
+              ),
+            ],
+          ),
+        ),
+        CampoText().textField(
+          controllerObservacoes,
+          'Observações: ',
+          confPadding:
+              EdgeInsets.only(top: size.height * 0.04, left: 10, right: 10),
+          icone: Icons.message_sharp,
+          minLines: 3,
+          maxLines: 4,
+          maxLength: 100,
+        ),
+      ],
+    );
+  }
+
+  opcDespesaParcelada() {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
+    Size size = mediaQuery.size;
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: size.height * 0.04),
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                width: size.width * 0.48,
+                child: CampoText().textField(
+                  controllerNumeroParcelas,
+                  'Num Parcelas:',
+                  tipoTexto: TextInputType.text,
+                  icone: Icons.numbers_rounded,
+                  fontLabel: Get.width * 0.05,
+                ),
+              ),
+              Container(
+                width: size.width * 0.48,
+                child: CampoText().textField(
+                  controllerValorDespesa,
+                  'Valor Despesa:',
+                  tipoTexto: TextInputType.text,
+                  icone: Icons.monetization_on,
+                  fontLabel: Get.width * 0.05,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: size.height * 0.04),
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                width: size.width * 0.48,
+                child: CampoText().textFieldIconButton(
+                  controllerData,
+                  'Data cadastro:',
+                  tipoTexto: TextInputType.text,
+                  icone: Icons.date_range_outlined,
+                  fontLabel: Get.width * 0.05,
+                  onTapIcon: () async {
+                    await selectDate(context);
+                    controllerData.text = converterData();
+                  },
+                ),
+              ),
+              Container(
+                width: size.width * 0.48,
+                child: CampoText().textFieldIconButton(
+                  controllerDataVencimento,
+                  'Vencimento:',
+                  tipoTexto: TextInputType.text,
+                  icone: Icons.date_range_outlined,
+                  fontLabel: Get.width * 0.05,
+                  onTapIcon: () async {
+                    await selectDate(context);
+                    controllerDataVencimento.text = converterData();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        CampoText().textField(
+          controllerObservacoes,
+          'Observações: ',
+          confPadding:
+              EdgeInsets.only(top: size.height * 0.04, left: 10, right: 10),
+          icone: Icons.message_sharp,
+          minLines: 3,
+          maxLines: 4,
+          maxLength: 100,
+        ),
+      ],
+    );
   }
 
   @override
@@ -171,7 +404,7 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
                     iconeVoltar: true,
                     // sizeTextTitulo: 0.065,
                     marginTop: 0.02),
-                SizedBox(height: size.height * 0.08),
+                SizedBox(height: size.height * 0.04),
                 Padding(
                   padding: EdgeInsets.only(
                     left: size.width * 0.02,
@@ -179,131 +412,18 @@ class _CadastroDespesaState extends State<CadastroDespesa> {
                   ),
                   child: Container(
                     width: size.width,
-                    height: size.height * 0.50,
+                    height: size.height * 0.60,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white),
                     child: SingleChildScrollView(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Padding(
-                          //   padding: EdgeInsets.only(
-                          //     top: size.height * 0.04,
-                          //     left: 5,
-                          //     right: 5,
-                          //   ),
-                          //   child: Container(
-                          //     alignment: Alignment.center,
-                          //     decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(10),
-                          //         border: Border.all(
-                          //             color: Colors.black, width: 1)),
-                          //     child: DropdownButton(
-                          //       hint: Text(
-                          //         'Tipo da despesa',
-                          //         style: TextStyle(
-                          //             fontSize: 18,
-                          //             fontWeight: FontWeight.bold),
-                          //       ),
-                          //       value: idTipoDespesaSelecionado,
-                          //       items: listaTipoDespesa.map(
-                          //         (tipoDespesa) {
-                          //           return DropdownMenuItem(
-                          //             value: (tipoDespesa['idtipo_despesa']),
-                          //             child: RichText(
-                          //               text: TextSpan(
-                          //                 text: tipoDespesa['idtipo_despesa']
-                          //                     .toString(),
-                          //                 style: TextStyle(
-                          //                   fontSize: 18,
-                          //                   fontWeight: FontWeight.w600,
-                          //                   color: Colors.blue[800],
-                          //                 ),
-                          //                 children: <TextSpan>[
-                          //                   TextSpan(
-                          //                     text: ' - ',
-                          //                     style: TextStyle(
-                          //                       fontSize: 18,
-                          //                       color: Colors.blue[800],
-                          //                     ),
-                          //                   ),
-                          //                   TextSpan(
-                          //                     text: tipoDespesa['nome']
-                          //                         .toString(),
-                          //                     style: TextStyle(
-                          //                       fontSize: 18.5,
-                          //                       color: Colors.black,
-                          //                     ),
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //       ).toList(),
-                          //       onChanged: (value) {
-                          //         setState(
-                          //           () {
-                          //             idTipoDespesaSelecionado = value;
-                          //           },
-                          //         );
-                          //       },
-                          //     ),
-                          //   ),
-                          // ),
-                          // CampoText().textField(
-                          //   controllerDescricao,
-                          //   'Descrição:',
-                          //   confPadding: EdgeInsets.only(
-                          //       top: size.height * 0.04, left: 10, right: 10),
-                          //   icone: Icons.description,
-                          // ),
-
-                          CampoText().textField(
-                            controllerValorDespesa,
-                            'Valor da despesa:',
-                            confPadding: EdgeInsets.only(
-                                top: size.height * 0.07, left: 10, right: 10),
-                            icone: Icons.monetization_on,
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: size.height * 0.04),
-                            child: Row(
-                              children: [
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  width: size.width * 0.48,
-                                  child: CampoText().textField(
-                                    controllerData,
-                                    'Data:',
-                                    tipoTexto: TextInputType.text,
-                                    icone: Icons.date_range_outlined,
-                                    fontLabel: 19,
-                                  ),
-                                ),
-                                Container(
-                                  width: size.width * 0.48,
-                                  child: CampoText().textField(
-                                    controllerHora,
-                                    'Hora:',
-                                    tipoTexto: TextInputType.text,
-                                    icone: Icons.timelapse_sharp,
-                                    fontLabel: 19,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          CampoText().textField(
-                            controllerObservacoes,
-                            'Observações: ',
-                            confPadding: EdgeInsets.only(
-                                top: size.height * 0.03, left: 10, right: 10),
-                            icone: Icons.message_sharp,
-                            minLines: 3,
-                            maxLines: 4,
-                            maxLength: 100,
-                          ),
+                          SizedBox(height: Get.height * 0.02),
+                          escolherTipoDespesa(context),
+                          if (despesaNormal == true) opcDespesaNormal(),
+                          if (despesaParcelada == true) opcDespesaParcelada(),
                         ],
                       ),
                     ),

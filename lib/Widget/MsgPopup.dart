@@ -6,9 +6,9 @@ class MsgPopup {
   // de algo que aconteceu. É um popup que tem apenas um botão botão "OK"
   msgFeedback(BuildContext context, mensagem, titulo,
       {Function? onPressed,
-      Color?corMsg,
-      double?sizeTitulo,
-      double?fontMsg,
+      Color? corMsg,
+      double? sizeTitulo,
+      double? fontMsg,
       txtButton}) {
     return showDialog(
       barrierDismissible: false,
@@ -18,7 +18,7 @@ class MsgPopup {
           titulo,
           style: TextStyle(
             fontSize: sizeTitulo ?? 18,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w800,
           ),
         ),
         content: new Text(
@@ -26,7 +26,7 @@ class MsgPopup {
           style: TextStyle(
             fontSize: fontMsg ?? 18,
             color: corMsg ?? Colors.black,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w500,
           ),
         ),
         actions: [
@@ -58,11 +58,11 @@ class MsgPopup {
     mensagem,
     titulo,
     onPressed(), {
-    Color?corMsg,
+    Color? corMsg,
     txtButton,
-    double?fonteMsg,
+    double? fonteMsg,
     fontWeightMsg,
-    double?fonteButton,
+    double? fonteButton,
     fontWeightButton,
   }) {
     return showDialog(
@@ -103,10 +103,10 @@ class MsgPopup {
   // ====== MENSAGEM COM TEXTO PARA DIGITAÇÃO E DOIS BOTÕES PARA O USUÁRIO TER OPÇÕES DE RESPOSTA =======
   msgComDoisBotoes(BuildContext context, mensagem, textoBotaoEsq, textoBotaoDir,
       onTap(), onPressed(),
-      {double?fontMsg,
-      Color?corMsg,
-      Color?corBotaoEsq,
-      Color?corBotaoDir,
+      {double? fontMsg,
+      Color? corMsg,
+      Color? corBotaoEsq,
+      Color? corBotaoDir,
       bool? sairAoPressionar}) {
     return showDialog(
       barrierDismissible: sairAoPressionar ?? false,
@@ -185,14 +185,14 @@ class MsgPopup {
     textoBotaoDir,
     onTap(),
     onPressed(), {
-    double?bordaPopup,
+    double? bordaPopup,
     controller,
-    double?fontText,
+    double? fontText,
     iconeText,
-    double?fontMsg,
-    Color?corMsg,
-    Color?corBotaoEsq,
-    Color?corBotaoDir,
+    double? fontMsg,
+    Color? corMsg,
+    Color? corBotaoEsq,
+    Color? corBotaoDir,
   }) {
     return showDialog(
       barrierDismissible: false,

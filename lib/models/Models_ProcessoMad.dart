@@ -66,7 +66,7 @@ class MadProcessada {
     idMadProcessada = json['idmad_processada'];
     tempoProcesso = json['tempo_processo'];
     data = json['data'];
-    qtdTorrasPorTipoTora = json['qtd_torras_por_tipo_tora'];
+    qtdTorrasPorTipoTora = json['qtd_toras_por_tipo_tora'];
     nomeUsuario = json['nome_usuario'];
     tipoTora = json['tipo_tora'];
   }

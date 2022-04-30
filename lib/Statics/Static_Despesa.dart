@@ -63,6 +63,8 @@ class BuscaDespesasPorData {
   static String? valorDespesa;
   static String? valorTotalTodosDespesas;
   static String? qtdDespesas;
+  static String? dataVencimento;
+  static String? nomeTipoDespesa;
 
   static final atualizaValorTotalDespesas = ValueNotifier<String>('');
 
@@ -101,6 +103,41 @@ class BuscaDespesasPorData {
     } else {
       atualizaValorTotalDespesas.value = 'R\$ 0,00';
     }
-    //
+  }
+
+  Future<dynamic> capturaDadosDespesasPorData(dataInicio, dataFim) async {
+    var result = await http.get(
+      Uri.parse(
+        BuscaValorTotalDespesasPorData +
+            dataInicio.toString() +
+            '/' +
+            dataFim.toString() +
+            '/' +
+            ModelsUsuarios.caminhoBaseUser.toString(),
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'authorization': ModelsUsuarios.tokenAuth.toString(),
+      },
+    );
+
+    Iterable lista = json.decode(result.body);
+    dadosDespesa = lista.map((model) => ModelsDespesa.fromJson(model)).toList();
+
+    if (dadosDespesa.toList().length > 0) {
+      iddespesa = dadosDespesa[0].idDespesa;
+      nomeTipoDespesa = dadosDespesa[0].nomeTipoDespesa;
+      dataVencimento = dadosDespesa[0].dataVencimento;
+      descricao = dadosDespesa[0].descricao;
+      observacoes = dadosDespesa[0].observacoes;
+      valorDespesa = dadosDespesa[0].valorDespesa;
+      valorTotalTodosDespesas = dadosDespesa[0].valorTotalTodosDespesas;
+      qtdDespesas = dadosDespesa[0].qtdDespesas;
+
+      atualizaValorTotalDespesas.value = valorTotalTodosDespesas!;
+    } else {
+      atualizaValorTotalDespesas.value = 'R\$ 0,00';
+    }
   }
 }

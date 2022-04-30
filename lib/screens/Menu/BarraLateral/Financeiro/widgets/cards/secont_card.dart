@@ -75,6 +75,10 @@ class _SecondCardState extends State<SecondCard> {
       FiltroDatasPesquisa.dataInicial,
       FiltroDatasPesquisa.dataFinal,
     );
+    BuscaDespesasPorData().capturaDadosDespesasPorData(
+      FiltroDatasPesquisa.dataInicial,
+      FiltroDatasPesquisa.dataFinal,
+    );
     FieldsRecebimento().capturaDadosRecebimentoPorData(
       FiltroDatasPesquisa.dataInicial,
       FiltroDatasPesquisa.dataFinal,

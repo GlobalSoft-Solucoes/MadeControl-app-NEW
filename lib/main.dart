@@ -50,6 +50,7 @@ import 'package:madecontrol_desenvolvimento/screens/Menu/HomeAplication.Dart';
 import 'package:madecontrol_desenvolvimento/screens/Login/LoginApp.Dart';
 import 'screens/Menu/BarraLateral/Configuracao/ConfigModulos.dart';
 import 'screens/Menu/BarraLateral/Financeiro/Entradas_E_Saidas/RelatorioRecebimentos.dart';
+import 'screens/Menu/BarraLateral/ProcessoMadeira/DetalhesPesquisaToras.dart';
 import 'screens/Menu/CadastrarEntradaLote/CadastrarLote.dart';
 import 'screens/Menu/CadastrarEntradaLote/Historico/HistoricoMedidas.dart';
 import 'package:madecontrol_desenvolvimento/screens/Menu/BarraLateral/usuario/ListarUsuarios.dart';

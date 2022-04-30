@@ -24,7 +24,7 @@ class _RelatorioDespesasState extends State<RelatorioDespesas> {
   Future<dynamic> listarDados() async {
     final response = await http.get(
       Uri.parse(
-        BuscarDetalhesDespesasPorDatas +
+        BuscaValorTotalDespesasPorData +
             ThirdCard.dataInicial! +
             '/' +
             ThirdCard.dataFinal! +
@@ -254,31 +254,29 @@ class _RelatorioDespesasState extends State<RelatorioDespesas> {
                                                                       .nomeTipoDespesa),
                                                           if (dadosListagem[
                                                                       index]
-                                                                  .descricao !=  null)
+                                                                  .descricao !=
+                                                              null)
                                                             FieldsDatabase()
                                                                 .listaDadosBanco(
-                                                                    'Descricao: ',
-                                                                    dadosListagem[
-                                                                            index]
-                                                                        .descricao),
-                                                          Row(
-                                                            children: [
-                                                              FieldsDatabase()
-                                                                  .listaDadosBanco(
-                                                                'Data: ',
-                                                                dadosListagem[
-                                                                        index]
-                                                                    .dataDespesa,
-                                                              ),
-                                                              FieldsDatabase()
-                                                                  .listaDadosBanco(
-                                                                '  -   Hora: ',
-                                                                dadosListagem[
-                                                                        index]
-                                                                    .horaDespesa,
-                                                              ),
-                                                            ],
+                                                              'Descricao: ',
+                                                              dadosListagem[
+                                                                      index]
+                                                                  .descricao,
+                                                            ),
+                                                          SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.005),
+                                                          FieldsDatabase()
+                                                              .listaDadosBanco(
+                                                            'Data: ',
+                                                            dadosListagem[index]
+                                                                .dataVencimento,
                                                           ),
+                                                          SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.005),
                                                           FieldsDatabase()
                                                               .listaDadosBanco(
                                                             'Valor: ',
