@@ -346,3 +346,14 @@ const EstListaoFornecedoresLotePorMes =
 // ===================== ACOMPANHAMENTO PEDIDO ======================
 const ListaGruposPedidosPorCodigoCliente =
     UrlServidor + 'AcomCliente/ListaPedidosProducaoPorCodCliente/';
+
+// ===================== ACOMPANHAMENTO PEDIDO ======================
+const ProcessoProdutoCadastrar = UrlServidor + 'ProcessoProduto/Cadastrar/';
+const AgrupaRegistrosPorProduto =
+    UrlServidor + 'ProcessoProduto/AgrupaRegistrosPorProduto/';
+const BuscaProcessosProdutoPorProduto =
+    UrlServidor + 'ProcessoProduto/BuscaProcessosPorProduto/';
+const BuscaTotalProdutosPorData =
+    UrlServidor + 'ProcessoProduto/BuscaTotalProdutosPorData/';
+const BuscaTotalPorTipoProdutoEData =
+    UrlServidor + 'ProcessoProduto/BuscaTotalPorTipoProdutoEData/';
