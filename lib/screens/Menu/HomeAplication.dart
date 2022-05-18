@@ -39,43 +39,6 @@ class _HomeState extends State<Home> {
         .capturaConfigAcessoTelasUsuario(ModelsUsuarios.idDoUsuario);
   }
 
-  // acessoBotaoPedProd() {
-  //   return Obx(() => FieldsModulo.processoPedido == true
-  //       ?
-  //       Botao().botaoPadrao(
-  //           'Pedidos em produção',
-  //           () {
-  //             setState(
-  //               () {
-  //                 FieldsAcessoTelas.pedidosCadastrados == true
-  //                     ? Navigator.pushNamed(context, '/GrupoPedidosProducao')
-  //                     : mensagemErroAcesso();
-  //               },
-  //             );
-  //           },
-  //           corFonte: Colors.white,
-  //           tamanhoLetra: 27,
-  //         )
-  //       : Container());
-  // }
-
-  // acessoBotaoProcessMad() {
-  //   return Obx(() => FieldsModulo.processoMadeira == true
-  //       ? Botao().botaoPadrao(
-  //           'Processar madeira',
-  //           () {
-  //             setState(
-  //               () {
-  //                 FieldsAcessoTelas.processoMadeira == true
-  //                     ? Navigator.pushNamed(context, '/SerraFita')
-  //                     : mensagemErroAcesso();
-  //               },
-  //             );
-  //           },
-  //       corFonte: Colors.white,
-  //         )
-  //       : Container());
-  // }
   acessoBotaoPedProd() {
     return FieldsModulo.processoPedido == true
         ? Botao().botaoPadrao(
@@ -113,6 +76,24 @@ class _HomeState extends State<Home> {
         : Container();
   }
 
+  acessoBotaoProcessProduto() {
+    return FieldsModulo.processoProduto == true
+        ? Botao().botaoPadrao(
+            'Processar Produto',
+            () {
+              setState(
+                () {
+                  FieldsAcessoTelas.processoMadeira == true
+                      ? Navigator.pushNamed(context, '/SelectProcessoProduto')
+                      : mensagemErroAcesso();
+                },
+              );
+            },
+            corFonte: Colors.green,
+          )
+        : Container();
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -121,7 +102,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(
           '${BuscaDadosEmpresaPorUsuario.nome!.toUpperCase()}',
-          style: TextStyle(fontSize: 22),
+          style: const TextStyle(fontSize: 22),
         ),
         centerTitle: true,
         backgroundColor: Colors.green[400]!.withOpacity(0.8),
@@ -129,7 +110,7 @@ class _HomeState extends State<Home> {
       body: Container(
         width: size.width,
         height: size.height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/images/madeiras/fundo02.jpg"),
               fit: BoxFit.cover),
@@ -209,7 +190,6 @@ class _HomeState extends State<Home> {
                       },
                       corFonte: Colors.green,
                     ),
-                    acessoBotaoProcessMad(),
                     Botao().botaoPadrao(
                       'Romaneios feitos',
                       () {
@@ -220,6 +200,8 @@ class _HomeState extends State<Home> {
                       },
                       corFonte: Colors.green,
                     ),
+                    acessoBotaoProcessMad(),
+                    acessoBotaoProcessProduto(),
                   ],
                 ),
               ),
@@ -231,12 +213,12 @@ class _HomeState extends State<Home> {
         child: ListView(
           children: [
             DrawerHeader(
-              margin: EdgeInsets.all(0),
-              padding: EdgeInsets.all(5),
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(5),
               curve: Curves.fastOutSlowIn,
               child: UserAccountsDrawerHeader(
                 onDetailsPressed: () {
-                  Text(
+                  const Text(
                     "Mteste",
                     style: TextStyle(fontSize: 40.0),
                   );
@@ -245,12 +227,12 @@ class _HomeState extends State<Home> {
                   color: Colors.grey[600]!.withOpacity(0.2),
                 ),
                 currentAccountPicture: new Container(
-                  padding: EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: Text(
                       "${BuscaDadosUsuarioPorId.nome!.substring(0, 1).toUpperCase()}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 35,
                       ),
                       textAlign: TextAlign.center,
@@ -260,7 +242,7 @@ class _HomeState extends State<Home> {
                 accountName: new Text(
                   "${BuscaDadosUsuarioPorId.nome}",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: Colors.black26,
@@ -268,21 +250,21 @@ class _HomeState extends State<Home> {
                 ),
                 accountEmail: new Text(
                   "${BuscaDadosUsuarioPorId.email}",
-                  style: TextStyle(color: Colors.black38),
+                  style: const TextStyle(color: Colors.black38),
                 ),
               ),
             ),
             // ======== TELA QUE MOSTRA INFORMAÇÕES DO PERFIL DO USUÁRIO ========
             ListTile(
-                title: Text(
+                title: const Text(
                   'Perfil do usuário',
                   style: TextStyle(fontSize: 19),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.perm_contact_calendar,
                   size: 30,
                 ),
-                contentPadding: EdgeInsets.only(top: 20, left: 10),
+                contentPadding: const EdgeInsets.only(top: 20, left: 10),
                 dense: true,
                 onTap: () async {
                   await BuscaDadosUsuarioPorId()
@@ -292,15 +274,15 @@ class _HomeState extends State<Home> {
                 }),
             // ========= TELA DE CADASTRO PARA OS USUÁRIOS DO SISTEMA =========
             ListTile(
-              title: Text(
+              title: const Text(
                 'Usuários',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.supervisor_account,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 20, left: 10),
+              contentPadding: const EdgeInsets.only(top: 20, left: 10),
               dense: true,
               onTap: () {
                 FieldsAcessoTelas.cadUsuario == true
@@ -309,16 +291,40 @@ class _HomeState extends State<Home> {
               },
             ),
             //Lista os processos da serra fita
+            FieldsModulo.processoProduto == true
+                ? ListTile(
+                    title: const Text(
+                      'Processo Produto',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    leading: const Icon(
+                      Icons.assignment,
+                      size: 30,
+                    ),
+                    contentPadding: const EdgeInsets.only(top: 20, left: 10),
+                    dense: true,
+                    onTap: () {
+                      setState(
+                        () {
+                          FieldsAcessoTelas.processoMadeira == true
+                              ? Navigator.pushNamed(
+                                  context, '/TelaProcessoProduto')
+                              : mensagemErroAcesso();
+                        },
+                      );
+                    },
+                  )
+                : Container(),
             ListTile(
-              title: Text(
+              title: const Text(
                 'Logs-SerraFita',
                 style: TextStyle(fontSize: 18),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.assignment,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 20, left: 10),
+              contentPadding: const EdgeInsets.only(top: 20, left: 10),
               dense: true,
               onTap: () {
                 setState(
@@ -333,15 +339,15 @@ class _HomeState extends State<Home> {
             ),
             // ======= TELA PARA AS CONFIGURAÇÕES ========
             ListTile(
-              title: Text(
+              title: const Text(
                 'Configurações',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.settings,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 20, left: 10),
+              contentPadding: const EdgeInsets.only(top: 20, left: 10),
               dense: true,
               onTap: () async {
                 FieldsAcessoTelas.listaClientes == true
@@ -354,15 +360,15 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              title: Text(
+              title: const Text(
                 'Lista de Clientes',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.article_outlined,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 20, left: 10),
+              contentPadding: const EdgeInsets.only(top: 20, left: 10),
               dense: true,
               onTap: () {
                 setState(
@@ -376,15 +382,15 @@ class _HomeState extends State<Home> {
             ),
             // ======== TELA DA PARTE FINANCEIRA DA EMPRESA ========
             ListTile(
-              title: Text(
+              title: const Text(
                 'Financeiro',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.attach_money_outlined,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 20, left: 10),
+              contentPadding: const EdgeInsets.only(top: 20, left: 10),
               dense: true,
               onTap: () async {
                 await BuscaValoresFinanceiroPorData().capturaDadosFinanceiro(
@@ -405,15 +411,15 @@ class _HomeState extends State<Home> {
             ),
             // ======== TELA DA PARTE DE DESPESAS DA EMPRESA ========
             ListTile(
-              title: Text(
+              title: const Text(
                 'Despesas',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.trending_down,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () async {
                 setState(
@@ -430,15 +436,15 @@ class _HomeState extends State<Home> {
             ),
             // =========== TELA DA PARTE DE RECEBIMENTOS DA EMPRESA ===========
             ListTile(
-              title: Text(
+              title: const Text(
                 'Recebimentos',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.trending_up,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () async {
                 setState(
@@ -455,15 +461,15 @@ class _HomeState extends State<Home> {
             ),
             // ==================== ESTATISTICAS ==================
             ListTile(
-              title: Text(
+              title: const Text(
                 'Estatísticas',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.extension_sharp,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () {
                 setState(
@@ -477,15 +483,15 @@ class _HomeState extends State<Home> {
             ),
             // =================== CADASTRO DE PELLET ====================
             ListTile(
-              title: Text(
+              title: const Text(
                 'Cadastro de pallet',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.calendar_view_day,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 20, left: 10),
+              contentPadding: const EdgeInsets.only(top: 20, left: 10),
               dense: true,
               onTap: () {
                 setState(
@@ -499,15 +505,15 @@ class _HomeState extends State<Home> {
             ),
             // =========== TELA DA PARTE DE DESPESAS DA EMPRESA ===========
             ListTile(
-              title: Text(
+              title: const Text(
                 'Produtos',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.view_compact_sharp,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () async {
                 setState(
@@ -524,15 +530,15 @@ class _HomeState extends State<Home> {
             ),
             // =========== TELA PARA CADASTRO DE MAEIRAS ===========
             ListTile(
-              title: Text(
+              title: const Text(
                 'Madeiras',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.eco_sharp,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () async {
                 setState(
@@ -549,15 +555,15 @@ class _HomeState extends State<Home> {
             ),
             // =======================================================
             ListTile(
-              title: Text(
+              title: const Text(
                 'Venda avulso',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.shopping_bag_outlined,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () async {
                 setState(
@@ -574,15 +580,15 @@ class _HomeState extends State<Home> {
             ),
             // =======================================================
             ListTile(
-              title: Text(
+              title: const Text(
                 'Histórico',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.history,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () async {
                 setState(
@@ -599,15 +605,15 @@ class _HomeState extends State<Home> {
             ),
             //======================= LIXEIRA =======================
             ListTile(
-              title: Text(
+              title: const Text(
                 'Lixeira',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.restore_from_trash,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () {
                 setState(
@@ -621,15 +627,15 @@ class _HomeState extends State<Home> {
             ),
             //======================= Deslogar usuário =======================
             ListTile(
-              title: Text(
+              title: const Text(
                 'Deslogar usuário',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.supervised_user_circle_sharp,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10),
+              contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
               onTap: () {
                 setState(
@@ -645,15 +651,16 @@ class _HomeState extends State<Home> {
             ),
             //======================= Sair =======================
             ListTile(
-              title: Text(
+              title: const Text(
                 'Sair',
                 style: TextStyle(fontSize: 19),
               ),
-              leading: Icon(
+              leading: const Icon(
                 Icons.login_outlined,
                 size: 30,
               ),
-              contentPadding: EdgeInsets.only(top: 10, left: 10, bottom: 70),
+              contentPadding:
+                  const EdgeInsets.only(top: 10, left: 10, bottom: 70),
               dense: true,
               onTap: () {
                 setState(

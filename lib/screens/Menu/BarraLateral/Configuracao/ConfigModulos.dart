@@ -22,12 +22,9 @@ class ConfigModulosEmpresaState extends State<ConfigModulosEmpresa> {
   var sim = "SIM";
   var nao = "NAO";
 
-  bool? producaoPedidoSim =
-      FieldsModulo.processoPedido == true ? true : false;
-  bool? producaoPedidoNao =
-      FieldsModulo.processoPedido == false ? true : false;
-  bool? opcProducaoPedido =
-      FieldsModulo.processoPedido == true ? true : false;
+  bool? producaoPedidoSim = FieldsModulo.processoPedido == true ? true : false;
+  bool? producaoPedidoNao = FieldsModulo.processoPedido == false ? true : false;
+  bool? opcProducaoPedido = FieldsModulo.processoPedido == true ? true : false;
 
   bool? processoMadeiraSim =
       FieldsModulo.processoMadeira == true ? true : false;
@@ -36,11 +33,19 @@ class ConfigModulosEmpresaState extends State<ConfigModulosEmpresa> {
   bool? opcProcessoMadeira =
       FieldsModulo.processoMadeira == true ? true : false;
 
+  bool? processoProdutoSim =
+      FieldsModulo.processoProduto == true ? true : false;
+  bool? processoProdutoNao =
+      FieldsModulo.processoProduto == false ? true : false;
+  bool? opcProcessoProduto =
+      FieldsModulo.processoProduto == true ? true : false;
+
   salvarAlteracoesAcessoTela() async {
     var bodyy = jsonEncode(
       {
         'producao_pedido': opcProducaoPedido,
         'processo_madeira': opcProcessoMadeira,
+        'processo_produto': opcProcessoProduto,
       },
     );
 
@@ -111,9 +116,9 @@ class ConfigModulosEmpresaState extends State<ConfigModulosEmpresa> {
                       child: Column(
                         children: [
                           //----------------------------------------------------
-                          new Container(
+                          Container(
                             alignment: Alignment.center,
-                            padding: new EdgeInsets.only(
+                            padding: EdgeInsets.only(
                               top: size.height * 0.01,
                               bottom: size.height * 0.02,
                             ),
@@ -188,6 +193,39 @@ class ConfigModulosEmpresaState extends State<ConfigModulosEmpresa> {
                                   processoMadeiraSim = true;
                                   processoMadeiraNao = false;
                                   opcProcessoMadeira = true;
+                                },
+                              ),
+                            },
+                            marginLeft: 0.013,
+                            marginTop: 0.025,
+                            distanciaTituloDosChecks: 0.005,
+                            backgroundColor: Colors.white.withOpacity(0.9),
+                            distanciaEntreChecks: 0.1,
+                          ),
+                          SizedBox(height: size.height * 0.02),
+                          //-------------------------------------------------------
+                          CheckBox().checkBoxDuasOpcoes(
+                            context,
+                            'Processamento de Produtos:',
+                            'Não',
+                            'Sim',
+                            processoProdutoNao,
+                            processoProdutoSim,
+                            () => {
+                              setState(
+                                () {
+                                  processoProdutoNao = true;
+                                  processoProdutoSim = false;
+                                  opcProcessoProduto = false;
+                                },
+                              ),
+                            },
+                            () => {
+                              setState(
+                                () {
+                                  processoProdutoSim = true;
+                                  processoProdutoNao = false;
+                                  opcProcessoProduto = true;
                                 },
                               ),
                             },

@@ -11,6 +11,7 @@ class FieldsModulo {
   static int? idEmpresa;
   static bool? processoPedido;
   static bool? processoMadeira;
+  static bool? processoProduto;
 
   var listaModulosEmpresa = <ModelsModulo>[];
 
@@ -38,8 +39,8 @@ class FieldsModulo {
         FieldsModulo.idModulo = listaModulosEmpresa[0].idModulo;
         FieldsModulo.idEmpresa = listaModulosEmpresa[0].idEmpresa;
         FieldsModulo.processoPedido = listaModulosEmpresa[0].processoPedido;
-        FieldsModulo.processoMadeira =
-            listaModulosEmpresa[0].processoMadeira;
+        FieldsModulo.processoMadeira = listaModulosEmpresa[0].processoMadeira;
+        FieldsModulo.processoProduto = listaModulosEmpresa[0].processoProduto;
       }
     }
   }

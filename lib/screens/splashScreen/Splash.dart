@@ -32,7 +32,10 @@ class _SplashState extends State<Splash> {
       Uri.parse(
           // VerificaUsuarioLogado + id.toString()),
           VerificaUsuarioLogado + id.toString() + '/' + caminhoBase.toString()),
-      headers: {"Content-Type": "application/json", "authorization": token.toString()},
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": token.toString()
+      },
     );
 
     if (response.statusCode == 200) {
@@ -77,7 +80,7 @@ class _SplashState extends State<Splash> {
         login = true;
       });
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    Future.delayed(Duration(seconds: 5)).then((_) {
+    Future.delayed(Duration(seconds: 3)).then((_) {
       if (login == true) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Login()));

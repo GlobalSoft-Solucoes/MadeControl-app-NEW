@@ -51,6 +51,9 @@ import 'package:madecontrol_desenvolvimento/screens/Login/LoginApp.Dart';
 import 'screens/Menu/BarraLateral/Configuracao/ConfigModulos.dart';
 import 'screens/Menu/BarraLateral/Financeiro/Entradas_E_Saidas/RelatorioRecebimentos.dart';
 import 'screens/Menu/BarraLateral/ProcessoMadeira/DetalhesPesquisaToras.dart';
+import 'screens/Menu/BarraLateral/ProcessoProduto/ContadorSerraFita/CadProcessoProduto.dart';
+import 'screens/Menu/BarraLateral/ProcessoProduto/ContadorSerraFita/SelectProcessoProduto.dart';
+import 'screens/Menu/BarraLateral/ProcessoProduto/TelaProcProduto.dart';
 import 'screens/Menu/CadastrarEntradaLote/CadastrarLote.dart';
 import 'screens/Menu/CadastrarEntradaLote/Historico/HistoricoMedidas.dart';
 import 'package:madecontrol_desenvolvimento/screens/Menu/BarraLateral/usuario/ListarUsuarios.dart';
@@ -179,7 +182,9 @@ void main() {
         '/GrupoPedidosProducao': (context) => GrupoPedidosProducao(),
         '/TelaHistoricoPedidos': (context) => TelaHistoricoPedidos(),
         '/TelaMadProcessada': (context) => TelaMadProcessada(),
-        // '/AcompanharPedido': (context) => AcompanharPedido(),
+        '/TelaProcessoProduto': (context) => TelaProcProduto(),
+        '/SelectProcessoProduto': (context) => SelectProcessoProduto(),
+        '/CadProcessoProduto': (context) => CadProcessoProduto(),
       },
       home: Splash(),
     ),
