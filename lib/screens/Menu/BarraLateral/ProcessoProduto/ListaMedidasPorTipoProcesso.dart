@@ -6,22 +6,31 @@ import 'package:madecontrol_desenvolvimento/Widget/Cabecalho.dart';
 import 'package:get/get.dart';
 import 'package:madecontrol_desenvolvimento/Widget/ListFieldsDataBase.dart';
 import 'package:madecontrol_desenvolvimento/Widget/TextField.dart';
+import 'package:madecontrol_desenvolvimento/funcoes/FuncoesParaDatas.dart';
 
 import 'package:madecontrol_desenvolvimento/models/Models_ProcessoProduto.dart';
 import 'package:madecontrol_desenvolvimento/models/Models_Usuario.dart';
 import 'package:http/http.dart' as http;
 import 'package:madecontrol_desenvolvimento/models/constantes.dart';
 
-import '../../../../funcoes/FuncoesParaDatas.dart';
-import 'ListaMedidasPorTipoProcesso.dart';
+import 'ListaPorTipoProcesso.dart';
 import 'TelaProcProduto.dart';
 
-class ListaPorTipoProcesso extends StatefulWidget {
-  @override
-  _ListaPorTipoProcessoState createState() => _ListaPorTipoProcessoState();
+class dadosOpcProduto {
+  static String? tipoMedida;
+  static int? numProduto;
+  static String? pacotes;
+  static String? metrosCubicos;
 }
 
-class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
+class ListaMedidasPorTipoProcesso extends StatefulWidget {
+  @override
+  _ListaMedidasPorTipoProcessoState createState() =>
+      _ListaMedidasPorTipoProcessoState();
+}
+
+class _ListaMedidasPorTipoProcessoState
+    extends State<ListaMedidasPorTipoProcesso> {
   var dadosList = <ModelsProcProduto>[];
   TextEditingController controllerDataInicio =
       MaskedTextController(mask: '00/00/0000');
@@ -224,10 +233,8 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
                   dataFim = converterDataParaEua(controllerDataFim.text);
                   dataInicio = converterDataParaEua(controllerDataInicio.text);
                   // pesquisaProdutos(dataInicio, dataFim);
-                  urlApi = BuscaProcessosProdutoPorTipoMedida +
-                      dadosOpcProduto.tipoMedida.toString() +
-                      '/' +
-                      dadosOpcProduto.numProduto.toString() +
+                  urlApi = AgrupaPorTipoMedidaEData +
+                      dataProcessProduto.numProduto.toString() +
                       '/' +
                       dataInicio.toString() +
                       '/' +
@@ -260,10 +267,9 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
   @override
   void initState() {
     super.initState();
-    urlApi = BuscaProcessosProdutoPorTipoMedida +
-        dadosOpcProduto.tipoMedida.toString() +
-        '/' +
-        dadosOpcProduto.numProduto.toString() +
+    print('data: ' + DataAtual().pegardataEUA().toString());
+    urlApi = AgrupaPorTipoMedidaEData +
+        dataProcessProduto.numProduto.toString() +
         '/' +
         '1999-01-01' +
         '/' +
@@ -285,10 +291,9 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
             child: Column(
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      // alignment: Alignment.bottomLeft,
+                      alignment: Alignment.bottomLeft,
                       padding:
                           EdgeInsets.only(top: size.height * 0.01, left: 10),
                       child: Container(
@@ -309,16 +314,16 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
                       child: Center(
                         child: Text(
                           dataProcessProduto.numProduto == 1
-                              ? 'DORMENTE ${dadosOpcProduto.tipoMedida}'
+                              ? 'DORMENTE'
                               : dataProcessProduto.numProduto == 2
-                                  ? 'PRANCHA ${dadosOpcProduto.tipoMedida}'
+                                  ? 'PRANCHA'
                                   : dataProcessProduto.numProduto == 3
-                                      ? 'TABUA ${dadosOpcProduto.tipoMedida}'
+                                      ? 'TABUA'
                                       : dataProcessProduto.numProduto == 4
-                                          ? 'PALETE ${dadosOpcProduto.tipoMedida}'
+                                          ? 'PALETE'
                                           : ' ',
                           style: TextStyle(
-                            fontSize: size.height * 0.025,
+                            fontSize: size.height * 0.026,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -371,22 +376,21 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
                             SizedBox(height: 15),
                             FieldsDatabase().listaDadosBanco(
                               'Total Metros Cúbicos: ',
-                              qtdCubicoPorTipo ??
-                                  dataProcessProduto.metrosCubicos,
+                              qtdCubicoPorTipo,
                               sizeCampoBanco: size.height * 0.025,
                               sizeTextoCampo: size.height * 0.025,
                             ),
                             SizedBox(height: 15),
                             FieldsDatabase().listaDadosBanco(
                               'Total Pacotes: ',
-                              qtdPacotePorTipo ?? dataProcessProduto.pacotes,
+                              qtdPacotePorTipo,
                               sizeCampoBanco: size.height * 0.025,
                               sizeTextoCampo: size.height * 0.025,
                             ),
                             SizedBox(height: 15),
                             FieldsDatabase().listaDadosBanco(
-                              'Qtd Total Peças: ',
-                              qtdPecasPorTipo ?? 0,
+                              'Total Peças: ',
+                              qtdPecasPorTipo,
                               sizeCampoBanco: size.height * 0.025,
                               sizeTextoCampo: size.height * 0.025,
                             ),
@@ -405,7 +409,7 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
                   child: Container(
                     padding: const EdgeInsets.only(bottom: 5, top: 5),
                     width: size.width,
-                    height: size.height * 0.70,
+                    height: size.height * 0.7,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -421,15 +425,32 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
                               : ListView.builder(
                                   itemCount: dadosList.length,
                                   itemBuilder: (context, index) {
+                                    // if (dadosList.length > 0) {
                                     qtdPacotePorTipo =
                                         dadosList[index].qtdPacotePorTipo;
                                     qtdCubicoPorTipo =
                                         dadosList[index].qtdCubicosPorTipo;
                                     qtdPecasPorTipo =
                                         dadosList[index].qtdPecasPorTipo;
+                                    // } else {
+                                    //   qtdPacotePorTipo = 0;
+                                    //   qtdCubicoPorTipo = 0;
+                                    // }
 
                                     return GestureDetector(
-                                      onTap: () async {},
+                                      onTap: () async {
+                                        dadosOpcProduto.tipoMedida =
+                                            dadosList[index].opcMedida;
+                                        dadosOpcProduto.numProduto =
+                                            dadosList[index].numProduto;
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ListaPorTipoProcesso(),
+                                          ),
+                                        );
+                                      },
                                       child: Padding(
                                         padding: const EdgeInsets.only(
                                           bottom: 4,
@@ -440,14 +461,14 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
                                               left: 7, right: 7),
                                           child: Container(
                                             alignment: Alignment.center,
-                                            height: size.height * 0.22,
+                                            height: size.height * 0.17,
                                             width: size.width,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(
                                                 10,
                                               ),
-                                              color: const Color(0XFFD1D6DC),
+                                              color: Color(0XFFD1D6DC),
                                             ),
                                             child: Container(
                                               padding: const EdgeInsets.only(
@@ -470,64 +491,48 @@ class _ListaPorTipoProcessoState extends State<ListaPorTipoProcesso> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        FieldsDatabase()
-                                                            .listaDadosBanco(
-                                                                'Data: ',
-                                                                dadosList[index]
-                                                                    .data),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            FieldsDatabase()
+                                                                .listaDadosBanco(
+                                                                    '',
+                                                                    dadosList[
+                                                                            index]
+                                                                        .opcMedida),
+                                                          ],
+                                                        ),
                                                         SizedBox(
                                                             height:
                                                                 size.height *
-                                                                    0.005),
-                                                        FieldsDatabase()
-                                                            .listaDadosBanco(
-                                                                'hora: ',
-                                                                dadosList[index]
-                                                                    .hora),
-                                                        SizedBox(
-                                                            height:
-                                                                size.height *
-                                                                    0.005),
+                                                                    0.02),
                                                         FieldsDatabase().listaDadosBanco(
-                                                            'Metros cúbicos: ',
+                                                            'Pacotes:  ',
                                                             dadosList[index]
                                                                     .metrosCubicos ??
                                                                 dadosList[index]
-                                                                    .qtdCubicosPorTipo),
+                                                                    .totalPacotesPorTipoMedida),
                                                         SizedBox(
                                                             height:
                                                                 size.height *
-                                                                    0.005),
+                                                                    0.01),
                                                         FieldsDatabase()
                                                             .listaDadosBanco(
-                                                                'Quantidade: ',
+                                                                'Peças:  ',
                                                                 dadosList[index]
-                                                                    .quantidade),
-                                                        if (dadosList[index]
-                                                                .medida !=
-                                                            null)
-                                                          SizedBox(
-                                                              height:
-                                                                  size.height *
-                                                                      0.005),
-                                                        if (dadosList[index]
-                                                                .medida !=
-                                                            null)
-                                                          FieldsDatabase()
-                                                              .listaDadosBanco(
-                                                                  'Medida: ',
-                                                                  dadosList[
-                                                                          index]
-                                                                      .medida),
+                                                                    .totalPecasPorTipoMedida),
                                                         SizedBox(
                                                             height:
                                                                 size.height *
-                                                                    0.005),
-                                                        FieldsDatabase()
-                                                            .listaDadosBanco(
-                                                                'Madeira: ',
+                                                                    0.01),
+                                                        FieldsDatabase().listaDadosBanco(
+                                                            'Metros cúbicos:  ',
+                                                            dadosList[index]
+                                                                    .metrosCubicos ??
                                                                 dadosList[index]
-                                                                    .madeira),
+                                                                    .totalCubicosPorTipoMedida),
                                                       ],
                                                     ),
                                                   ),

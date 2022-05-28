@@ -14,6 +14,7 @@ import 'package:madecontrol_desenvolvimento/models/Models_Usuario.dart';
 import 'package:madecontrol_desenvolvimento/models/constantes.dart';
 import 'package:http/http.dart' as http;
 
+import 'ListaMedidasPorTipoProcesso.dart';
 import 'ListaPorTipoProcesso.dart';
 
 class dataProcessProduto {
@@ -21,6 +22,7 @@ class dataProcessProduto {
   static int? numProduto;
   static String? pacotes;
   static String? metrosCubicos;
+  static String? qtdPecas;
 }
 
 class TelaProcProduto extends StatefulWidget {
@@ -318,7 +320,7 @@ class TelaProcProdutoState extends State<TelaProcProduto> {
                     ),
                   ],
                 ),
-                SizedBox(height: size.height * 0.08),
+                SizedBox(height: size.height * 0.06),
                 Padding(
                   padding: EdgeInsets.only(
                     left: size.width * 0.02,
@@ -331,7 +333,7 @@ class TelaProcProdutoState extends State<TelaProcProduto> {
                       top: 5,
                     ),
                     width: size.width,
-                    height: size.height * 0.65,
+                    height: size.height * 0.73,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.black, width: 1),
                       borderRadius: BorderRadius.circular(10),
@@ -368,6 +370,8 @@ class TelaProcProdutoState extends State<TelaProcProduto> {
                                               dadosList[index].numProduto;
                                           dataProcessProduto.pacotes =
                                               dadosList[index].qtdPacote;
+                                          dataProcessProduto.qtdPecas =
+                                              dadosList[index].qtdPecas;
                                           dataProcessProduto.metrosCubicos =
                                               dadosList[index]
                                                   .qtdCubicos
@@ -376,12 +380,12 @@ class TelaProcProdutoState extends State<TelaProcProduto> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  ListaPorTipoProcesso(),
+                                                  ListaMedidasPorTipoProcesso(),
                                             ),
                                           );
                                         },
                                         child: Container(
-                                          height: size.height * 0.15,
+                                          height: size.height * 0.17,
                                           width: size.width,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(
@@ -417,6 +421,14 @@ class TelaProcProdutoState extends State<TelaProcProduto> {
                                                             'Pacotes: ',
                                                             dadosList[index]
                                                                 .qtdPacote),
+                                                    SizedBox(
+                                                        height:
+                                                            size.height * 0.01),
+                                                    FieldsDatabase()
+                                                        .listaDadosBanco(
+                                                            'Qtd Peças: ',
+                                                            dadosList[index]
+                                                                .qtdPecas),
                                                     SizedBox(
                                                         height:
                                                             size.height * 0.01),

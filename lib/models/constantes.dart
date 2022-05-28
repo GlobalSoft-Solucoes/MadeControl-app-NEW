@@ -351,9 +351,11 @@ const ListaGruposPedidosPorCodigoCliente =
 const ProcessoProdutoCadastrar = UrlServidor + 'ProcessoProduto/Cadastrar/';
 const AgrupaRegistrosPorProduto =
     UrlServidor + 'ProcessoProduto/AgrupaRegistrosPorProduto/';
-const BuscaProcessosProdutoPorProduto =
-    UrlServidor + 'ProcessoProduto/BuscaProcessosPorProduto/';
+const BuscaProcessosProdutoPorTipoMedida =
+    UrlServidor + 'ProcessoProduto/BuscaProcessosPorTipoMedida/';
 const BuscaTotalProdutosPorData =
     UrlServidor + 'ProcessoProduto/BuscaTotalProdutosPorData/';
 const BuscaTotalPorTipoProdutoEData =
     UrlServidor + 'ProcessoProduto/BuscaTotalPorTipoProdutoEData/';
+const AgrupaPorTipoMedidaEData =
+    UrlServidor + 'ProcessoProduto/AgrupaPorTipoMedidaEData/';
