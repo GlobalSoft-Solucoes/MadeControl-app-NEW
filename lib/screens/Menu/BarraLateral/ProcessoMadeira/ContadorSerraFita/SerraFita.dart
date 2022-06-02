@@ -33,12 +33,13 @@ class _SerraFitaState extends State<SerraFita> {
         // 'tempo_processo': duracao.toString(),
         // 'idprocesso_madeira': idProcessoMadeira,
         'data': DataAtual().pegardataBR() as String,
+        'hora': DataAtual().pegarHoraMinutoSegundo() as String,
         'tipo_tora': tipoTora
       },
     );
     if (duracao.toString() != '0:00:00.000000') {
-      print('duração: '+duracao.toString());
-     
+      print('duração: ' + duracao.toString());
+
       var response = await http.post(
         Uri.parse(
             CadastrarMadProcessada + ModelsUsuarios.caminhoBaseUser.toString()),
@@ -203,22 +204,22 @@ class _SerraFitaState extends State<SerraFita> {
                   ),
                 ),
                 // ================== TORA DO PÉ =================
-                SizedBox(
-                  width: Get.width * 0.03,
-                ),
-                Container(
-                  child: FloatingActionButton.extended(
-                    backgroundColor: Colors.green,
-                    label: Text(
-                      'Tora do Pé',
-                      style: TextStyle(fontSize: 23),
-                    ),
-                    onPressed: () async {
-                      tipoTora = 4;
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
+                // SizedBox(
+                //   width: Get.width * 0.03,
+                // ),
+                // Container(
+                //   child: FloatingActionButton.extended(
+                //     backgroundColor: Colors.green,
+                //     label: Text(
+                //       'Tora do Pé',
+                //       style: TextStyle(fontSize: 23),
+                //     ),
+                //     onPressed: () async {
+                //       tipoTora = 4;
+                //       Navigator.pop(context);
+                //     },
+                //   ),
+                // ),
                 SizedBox(
                   height: Get.height * 0.05,
                 ),

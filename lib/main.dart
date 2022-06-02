@@ -1,3 +1,5 @@
+// ignore_for_file: null_check_always_fails
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -51,8 +53,8 @@ import 'package:madecontrol_desenvolvimento/screens/Login/LoginApp.Dart';
 import 'screens/Menu/BarraLateral/Configuracao/ConfigModulos.dart';
 import 'screens/Menu/BarraLateral/Financeiro/Entradas_E_Saidas/RelatorioRecebimentos.dart';
 import 'screens/Menu/BarraLateral/ProcessoMadeira/DetalhesPesquisaToras.dart';
-import 'screens/Menu/BarraLateral/ProcessoProduto/ContadorSerraFita/CadProcessoProduto.dart';
-import 'screens/Menu/BarraLateral/ProcessoProduto/ContadorSerraFita/SelectProcessoProduto.dart';
+import 'screens/Menu/BarraLateral/ProcessoProduto/CadProcessoProduto.dart';
+import 'screens/Menu/BarraLateral/ProcessoProduto/SelectProcessoProduto.dart';
 import 'screens/Menu/BarraLateral/ProcessoProduto/TelaProcProduto.dart';
 import 'screens/Menu/CadastrarEntradaLote/CadastrarLote.dart';
 import 'screens/Menu/CadastrarEntradaLote/Historico/HistoricoMedidas.dart';
@@ -85,16 +87,16 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void main() {
-  HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(
     GetMaterialApp(
-      locale: Locale('pt', 'BR'),
+      locale: const Locale('pt', 'BR'),
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      supportedLocales: [const Locale('pt', 'BR')],
+      supportedLocales: const [Locale('pt', 'BR')],
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       builder: (context, widget) => ResponsiveWrapper.builder(
@@ -103,11 +105,11 @@ void main() {
         minWidth: 450,
         defaultScale: true,
         breakpoints: [
-          ResponsiveBreakpoint.resize(450, name: MOBILE),
-          ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-          ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-          ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+          const ResponsiveBreakpoint.resize(450, name: MOBILE),
+          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+          const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+          const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
       routes: {

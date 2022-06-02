@@ -1,24 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:madecontrol_desenvolvimento/Statics/Static_Recebimento.dart';
 import 'package:madecontrol_desenvolvimento/Widget/Botao.dart';
 import 'package:madecontrol_desenvolvimento/Widget/Cabecalho.dart';
 import 'package:get/get.dart';
 import 'package:madecontrol_desenvolvimento/Widget/CheckBox.dart';
-import 'package:madecontrol_desenvolvimento/Widget/ListFieldsDataBase.dart';
 import 'package:madecontrol_desenvolvimento/Widget/MsgPopup.dart';
-import 'package:madecontrol_desenvolvimento/Widget/TextField.dart';
 import 'package:madecontrol_desenvolvimento/funcoes/FuncoesParaDatas.dart';
 import 'package:madecontrol_desenvolvimento/models/Models_Recebimento.dart';
 import 'package:madecontrol_desenvolvimento/models/Models_Usuario.dart';
 import 'package:http/http.dart' as http;
 import 'package:madecontrol_desenvolvimento/models/constantes.dart';
-
 import 'SelectProcessoProduto.dart';
-import 'WidgetsProcessoProduto.dart';
 
 class CadProcessoProduto extends StatefulWidget {
   CadProcessoProduto({Key? key}) : super(key: key);

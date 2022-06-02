@@ -73,6 +73,29 @@ class DataAtual {
     return horaAtual = '$hora:$minutos';
   }
 
+  pegarHoraMinutoSegundo() {
+    var hora;
+    var minutos;
+    var horaAtual;
+    var segundo;
+
+    hora = DateTime.now().hour;
+    minutos = DateTime.now().minute;
+    segundo = DateTime.now().second;
+
+    if (hora < 10) {
+      hora = '0' + hora.toString();
+    }
+    if (minutos < 10) {
+      minutos = '0' + minutos.toString();
+    }
+    if (segundo < 10) {
+      segundo = '0' + segundo.toString();
+    }
+
+    return horaAtual = '$hora:$minutos:$segundo';
+  }
+
   validarDataSelecionada(fieldController) {
     var dia;
     var mes;
