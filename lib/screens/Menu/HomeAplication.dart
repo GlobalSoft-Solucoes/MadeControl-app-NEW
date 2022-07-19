@@ -637,16 +637,11 @@ class _HomeState extends State<Home> {
               ),
               contentPadding: const EdgeInsets.only(top: 10, left: 10),
               dense: true,
-              onTap: () {
-                setState(
-                  () async {
-                    SharedPreferences user =
-                        await SharedPreferences.getInstance();
-                    user.remove('Token');
-                    user.remove('idusuario');
-                    Navigator.pushNamed(context, '/login');
-                  },
-                );
+              onTap: () async {
+                SharedPreferences user = await SharedPreferences.getInstance();
+                user.remove('Token');
+                user.remove('idusuario');
+                Navigator.pushNamed(context, '/login');
               },
             ),
             //======================= Sair =======================

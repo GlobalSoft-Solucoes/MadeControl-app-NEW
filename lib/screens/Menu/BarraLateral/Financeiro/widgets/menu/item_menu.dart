@@ -9,16 +9,16 @@ class ItemMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(width: 0.7, color: Colors.white54),
           top: BorderSide(width: 0.8, color: Colors.white54),
         ),
       ),
-      // ignore: deprecated_member_use
-      child: RaisedButton(
-        color: Colors.green[200],
-        highlightColor: Colors.transparent,
+      child: FloatingActionButton(
+        heroTag: "teste 1",
+        backgroundColor: Colors.green[200],
+        // highlightColor: Colors.transparent,
         elevation: 0,
         disabledElevation: 0,
         focusElevation: 0,
@@ -30,23 +30,23 @@ class ItemMenu extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                  SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Icon(
                   icon,
                   size: 30,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Text(
                   text!,
-                  style: TextStyle(fontSize: 19),
+                  style: const TextStyle(fontSize: 19),
                 ),
               ],
             ),
-            Icon(
+            const Icon(
               Icons.chevron_right,
               size: 25,
             )

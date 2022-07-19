@@ -223,12 +223,12 @@ const EditarDespesa = UrlServidor + 'Despesa/EditarDespesa/';
 const ExcluirDespesa = UrlServidor + 'Despesa/Excluir/';
 const ListarTodasDespesas = UrlServidor + 'Despesa/ListarTodasDespesas/';
 const BuscarDetalhesDespesasPorDatas =
-    UrlServidor + 'Despesa/BuscaDetalhesDespesaPorData/';
+    UrlServidor + 'Despesa/BuscaDetalhesDespesaPorData/'; //esse
 const BuscarDespesaPorId = UrlServidor + 'Despesa/BuscaDespesaPorId/';
 const ListaDespesasPorSubGrupo =
     UrlServidor + 'Despesa/ListaDespesasPorSubGrupo/';
 const BuscaValorTotalDespesasPorData =
-    UrlServidor + 'Despesa/BuscaValorTotalDespesasPorData/';
+    UrlServidor + 'Despesa/BuscaValorTotalDespesasPorData/'; //esse
 // =================== TABELA PARCELA_DESPESA ====================
 const EditarParcelaDespesa = UrlServidor + 'ParcelasDespesa/Editar/';
 const ListaParcelasPorDespesa =

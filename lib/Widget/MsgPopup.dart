@@ -13,15 +13,15 @@ class MsgPopup {
     return showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (context) => new CupertinoAlertDialog(
-        title: new Text(
+      builder: (context) => CupertinoAlertDialog(
+        title: Text(
           titulo,
           style: TextStyle(
             fontSize: sizeTitulo ?? 18,
             fontWeight: FontWeight.w800,
           ),
         ),
-        content: new Text(
+        content: Text(
           mensagem,
           style: TextStyle(
             fontSize: fontMsg ?? 18,
@@ -118,7 +118,7 @@ class MsgPopup {
           title: Text(
             mensagem,
             textAlign: TextAlign.center,
-            style: new TextStyle(
+            style: TextStyle(
               fontSize: fontMsg ?? 22,
               fontWeight: FontWeight.w600,
               color: corMsg ?? Colors.black,
@@ -127,7 +127,7 @@ class MsgPopup {
           elevation: 12,
           actions: <Widget>[
             // ===================== BOTÕES ==========================
-            new Container(
+            Container(
               padding: EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width,
               child: Row(
@@ -139,9 +139,9 @@ class MsgPopup {
                   ),
                   // ============= PRIMEIRO BOTÃO ==============
                   Container(
-                    child: new FloatingActionButton.extended(
+                    child: FloatingActionButton.extended(
                       backgroundColor: corBotaoEsq ?? Color(0XFFF4485C),
-                      label: new Text(
+                      label: Text(
                         textoBotaoEsq,
                         style: TextStyle(fontSize: 19),
                       ),
@@ -154,11 +154,11 @@ class MsgPopup {
                   SizedBox(width: 10),
                   // ============= SEGUNDO BOTÃO ==============
                   Container(
-                    child: new FloatingActionButton.extended(
+                    child: FloatingActionButton.extended(
                       backgroundColor: corBotaoDir ?? Color(0XFF0099FF),
                       label: Text(
                         textoBotaoDir,
-                        style: new TextStyle(fontSize: 19),
+                        style: TextStyle(fontSize: 19),
                       ),
                       onPressed: () {
                         onPressed();

@@ -10,6 +10,7 @@ class ModelsDespesa {
   String? nomeTipoDespesa;
   String? nomeUsuario;
   String? valorTotalTodosDespesas;
+  String? valorTotalPesquisaDespesas;
   String? qtdDespesas;
   int? numParcelas;
   String? dataVencimento;
@@ -29,6 +30,7 @@ class ModelsDespesa {
     this.qtdDespesas,
     this.dataVencimento,
     this.numParcelas,
+    this.valorTotalPesquisaDespesas,
   });
   ModelsDespesa.fromJson(Map<String, dynamic> json) {
     idDespesa = json['iddespesa'];
@@ -42,6 +44,7 @@ class ModelsDespesa {
     nomeTipoDespesa = json['nome_tipo_despesa'];
     nomeUsuario = json['nome_usuario'];
     valorTotalTodosDespesas = json['valor_total_despesa'];
+    valorTotalPesquisaDespesas = json['valor_total_pesquisa_despesa'];
     qtdDespesas = json['qtd_despesas'];
     dataVencimento = json['data_vencimento'];
     numParcelas = json['num_parcelas'];

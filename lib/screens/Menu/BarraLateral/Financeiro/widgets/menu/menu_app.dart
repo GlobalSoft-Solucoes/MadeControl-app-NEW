@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:madecontrol_desenvolvimento/screens/Menu/BarraLateral/Financeiro/widgets/menu/item_menu.dart';
 
 class MenuApp extends StatelessWidget {
-  final double?top;
+  final double? top;
   final bool? showMenu;
 
   const MenuApp({Key? key, this.top, this.showMenu}) : super(key: key);
@@ -21,24 +21,24 @@ class MenuApp extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    children: <Widget>[
-                      ItemMenu(
-                        icon: Icons.signal_cellular_alt,
-                        text: 'Dados de faturamento',
-                      ),
-                      ItemMenu(
-                        icon: Icons.signal_cellular_connected_no_internet_4_bar,
-                        text: 'Dados de despesas',
-                      ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                    ],
-                  ),
-                )
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 30),
+                //   child: Column(
+                //     children: const <Widget>[
+                //       ItemMenu(
+                //         icon: Icons.signal_cellular_alt,
+                //         text: 'Dados de faturamento',
+                //       ),
+                //       ItemMenu(
+                //         icon: Icons.signal_cellular_connected_no_internet_4_bar,
+                //         text: 'Dados de despesas',
+                //       ),
+                //       SizedBox(
+                //         height: 25,
+                //       ),
+                //     ],
+                //   ),
+                // )
               ],
             ),
           ),

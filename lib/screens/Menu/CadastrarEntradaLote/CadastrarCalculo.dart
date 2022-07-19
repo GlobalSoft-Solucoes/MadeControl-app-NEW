@@ -99,7 +99,8 @@ class _CadastrarMedidasState extends State<CadastrarMedidas> {
     );
 
     var response = await http.post(
-      Uri.parse(CadastrarDadosCalculo + ModelsUsuarios.caminhoBaseUser.toString()),
+      Uri.parse(
+          CadastrarDadosCalculo + ModelsUsuarios.caminhoBaseUser.toString()),
       headers: {
         "Content-Type": "application/json",
         "authorization": ModelsUsuarios.tokenAuth.toString()
@@ -201,7 +202,7 @@ class _CadastrarMedidasState extends State<CadastrarMedidas> {
   showSnackbar(String? message) {
     final snackBar = SnackBar(content: Text(message!));
     // ignore: deprecated_member_use
-    _scaffoldKey.currentState!.showSnackBar(snackBar);
+    // _scaffoldKey.currentState!.showSnackBar(snackBar);
   }
 
   medidaPorUnidade() {

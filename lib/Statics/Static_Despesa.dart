@@ -61,12 +61,14 @@ class BuscaDespesasPorData {
   static String? descricao;
   static String? observacoes;
   static String? valorDespesa;
+  static String? valorTotalPesquisaDespesas;
   static String? valorTotalTodosDespesas;
   static String? qtdDespesas;
   static String? dataVencimento;
   static String? nomeTipoDespesa;
 
   static final atualizaValorTotalDespesas = ValueNotifier<String>('');
+  static final atualizaValorTotalDespesaPesquisa = ValueNotifier<String>('');
 
   Future<dynamic> capturaDadosDespesa(dataInicio, dataFim) async {
     var result = await http.get(
@@ -96,12 +98,16 @@ class BuscaDespesasPorData {
       descricao = dadosDespesa[0].descricao;
       observacoes = dadosDespesa[0].observacoes;
       valorDespesa = dadosDespesa[0].valorDespesa;
-      valorTotalTodosDespesas = dadosDespesa[0].valorTotalTodosDespesas;
+      valorTotalPesquisaDespesas = dadosDespesa[0].valorTotalPesquisaDespesas;
       qtdDespesas = dadosDespesa[0].qtdDespesas;
 
-      atualizaValorTotalDespesas.value = valorTotalTodosDespesas!;
+      // atualizaValorTotalDespesas.value = valorTotalPesquisaDespesas!;
+      atualizaValorTotalDespesaPesquisa.value = valorTotalPesquisaDespesas!;
     } else {
-      atualizaValorTotalDespesas.value = 'R\$ 0,00';
+      // atualizaValorTotalDespesas.value = 'R\$ 0,00';
+      atualizaValorTotalDespesaPesquisa.value = 'R\$ 0,00';
+
+      /// card third
     }
   }
 
@@ -138,6 +144,8 @@ class BuscaDespesasPorData {
       atualizaValorTotalDespesas.value = valorTotalTodosDespesas!;
     } else {
       atualizaValorTotalDespesas.value = 'R\$ 0,00';
+
+      /// tela home
     }
   }
 }

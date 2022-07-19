@@ -139,7 +139,7 @@ class _ListarDespesasState extends State<ListarDespesas> {
               children: [
                 Cabecalho().tituloCabecalho(
                   context,
-                  'Relatorio de despesas',
+                  'Relatório de despesas',
                   iconeVoltar: true,
                   marginBottom: 0,
                 ),
@@ -302,7 +302,7 @@ class _ListarDespesasState extends State<ListarDespesas> {
                                               );
                                             },
                                             child: Container(
-                                              height: size.height * 0.13,
+                                              height: size.height * 0.155,
                                               width: size.width,
                                               decoration: BoxDecoration(
                                                 borderRadius:
@@ -345,16 +345,24 @@ class _ListarDespesasState extends State<ListarDespesas> {
                                                                   dadosListagem[
                                                                           index]
                                                                       .valorDespesa),
-                                                          SizedBox(
-                                                              height:
-                                                                  Get.height *
-                                                                      0.01),
-                                                          FieldsDatabase()
-                                                              .listaDadosBanco(
-                                                                  'Parcelas: ',
-                                                                  dadosListagem[
-                                                                          index]
-                                                                      .numParcelas),
+                                                          if (dadosListagem[
+                                                                      index]
+                                                                  .numParcelas !=
+                                                              null)
+                                                            SizedBox(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.01),
+                                                          if (dadosListagem[
+                                                                      index]
+                                                                  .numParcelas !=
+                                                              null)
+                                                            FieldsDatabase()
+                                                                .listaDadosBanco(
+                                                                    'Parcelas: ',
+                                                                    dadosListagem[
+                                                                            index]
+                                                                        .numParcelas),
                                                           if (dadosListagem[
                                                                       index]
                                                                   .observacoes !=

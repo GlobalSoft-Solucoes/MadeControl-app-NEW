@@ -1,6 +1,8 @@
-import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+// import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import 'ButtonEfect.dart';
 
 //BOTAO PADRÃO PARA UTILIZAÇÃO GERAL
 class Botao {

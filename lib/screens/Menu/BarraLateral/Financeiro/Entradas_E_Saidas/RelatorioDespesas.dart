@@ -13,6 +13,8 @@ import 'package:http/http.dart' as http;
 import 'package:madecontrol_desenvolvimento/screens/Menu/BarraLateral/Despesas/DetalhesDespesa.dart';
 import 'package:madecontrol_desenvolvimento/screens/Menu/BarraLateral/Financeiro/widgets/cards/third_card.dart';
 
+import '../../Despesas/DetalhesParcelaDespesa.dart';
+
 class RelatorioDespesas extends StatefulWidget {
   @override
   _RelatorioDespesasState createState() => _RelatorioDespesasState();
@@ -195,12 +197,16 @@ class _RelatorioDespesasState extends State<RelatorioDespesas> {
                         builder: (BuildContext context, snapshot) {
                           return Obx(
                             () => loading!.value == true
-                                ? Center(
+                                ? const Center(
                                     child: CircularProgressIndicator(),
                                   )
                                 : ListView.builder(
                                     itemCount: dadosListagem.length,
                                     itemBuilder: (context, index) {
+                                      Hero(
+                                        tag: 'tag: $index',
+                                        child: Container(),
+                                      );
                                       return GestureDetector(
                                         onTap: () {
                                           PermissaoExcluirDespesa
@@ -209,8 +215,8 @@ class _RelatorioDespesasState extends State<RelatorioDespesas> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  ListarDadosDespesa(
-                                                      iddespesa:
+                                                  DetalhesParcelasDespesa(
+                                                      idDespesa:
                                                           dadosListagem[index]
                                                               .idDespesa),
                                             ),
@@ -234,7 +240,7 @@ class _RelatorioDespesasState extends State<RelatorioDespesas> {
                                                     BorderRadius.circular(
                                                   15,
                                                 ),
-                                                color: Color(0XFFf89281),
+                                                color: const Color(0XFFf89281),
                                               ),
                                               child: Container(
                                                 alignment: Alignment.center,

@@ -57,6 +57,15 @@ class _ThirdCardState extends State<ThirdCard> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    BuscaDespesasPorData().capturaDadosDespesasPorData(
+      FiltroDatasPesquisa.dataInicial,
+      FiltroDatasPesquisa.dataFinal,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     Size size = mediaQuery.size;
@@ -82,7 +91,7 @@ class _ThirdCardState extends State<ThirdCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Row(
-                                  children: <Widget>[
+                                  children: const <Widget>[
                                     Text(
                                       '--',
                                       style: TextStyle(
@@ -122,7 +131,7 @@ class _ThirdCardState extends State<ThirdCard> {
                                   padding: EdgeInsets.only(
                                       left: size.width * 0.2, right: 4),
                                   child: IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.filter_list,
                                       color: Colors.white,
                                       size: 34,
@@ -166,24 +175,24 @@ class _ThirdCardState extends State<ThirdCard> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                   ValueListenableBuilder(
-                                   valueListenable: BuscaDespesasPorData
-                                      .atualizaValorTotalDespesas,
-                                   builder: (context, value, _){
-                                      return Text.rich(
-                                      TextSpan(
-                                        text:
-                                            (BuscaDespesasPorData.atualizaValorTotalDespesas.value),
-                                      ),
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        color: Colors.deepOrange[400],
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    );
-                                   }
-                                 )
+                                  ValueListenableBuilder(
+                                      valueListenable: BuscaDespesasPorData
+                                          .atualizaValorTotalDespesaPesquisa,
+                                      builder: (context, value, _) {
+                                        return Text.rich(
+                                          TextSpan(
+                                            text: (BuscaDespesasPorData
+                                                .atualizaValorTotalDespesaPesquisa
+                                                .value),
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            color: Colors.deepOrange[400],
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        );
+                                      })
                                 ],
                               ),
                             ),
@@ -245,12 +254,12 @@ class _ThirdCardState extends State<ThirdCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Icon(
+                        const Icon(
                           Icons.call_missed_outgoing_sharp,
                           color: Colors.grey,
                           size: 28,
                         ),
-                        Flexible(
+                        const Flexible(
                           child: Text(
                             'Ver relações das despesas',
                             style: TextStyle(color: Colors.black, fontSize: 19),
